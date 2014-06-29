@@ -1,0 +1,55 @@
+
+public class createLinkedList<T>{
+	/* Node Definition
+	 * data stores the information about the node
+	 * next stores the node to which current node points to
+	 */ 
+	private T data;
+	private createLinkedList<T> next;
+
+	public createLinkedList(T value){
+		data=value;
+	}
+	public createLinkedList<T> next(){
+		return next;
+	}
+	public T getValue() {
+		return data;
+	}
+	/*
+	 * Setter methods for data and next
+	 */
+	public void setValue(T data){
+		this.data=data;
+	}
+	public void setNext(createLinkedList<T> next){
+		this.next=next;
+	}
+
+	public static void main(String[] args) {
+		createLinkedList<Integer> node1=new createLinkedList<Integer>(12);
+		createLinkedList<Integer> node2=new createLinkedList<Integer>(3);
+		createLinkedList<Integer> node3=new createLinkedList<Integer>(-8);
+		createLinkedList<Integer> node4=new createLinkedList<Integer>(6);
+		node1.setValue(node1.getValue());
+		node1.setNext(node2);
+		node2.setValue(node2.getValue());
+		node2.setNext(node3);
+		node3.setValue(node3.getValue());
+		node3.setNext(node4);
+		node4.setValue(node4.getValue());
+		node4.setNext(null);
+
+		/*
+		 *Printing linked list
+		 */
+		createLinkedList<Integer> referenceToList=node1;
+		while(referenceToList!=null ){
+			System.out.println(referenceToList.getValue());
+			referenceToList=referenceToList.next();
+
+		}
+
+
+	}
+}

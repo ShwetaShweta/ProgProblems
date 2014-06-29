@@ -1,0 +1,106 @@
+class Node{
+	int key;
+	String name;
+	Node leftChild;
+	Node rightChild;
+
+	public String toString(){
+		return name + " has the key " + key + "\nleft Child is "+ leftChild + "\nright child is "+ rightChild;
+	}
+
+	public Node(int key,String name){
+		this.key=key;
+		this.name=name;
+	}
+}
+
+public class BinarySearchTree{
+	Node root;
+	public void addNode(int key,String value){
+		Node newNode=new Node(key,value);
+		if(root == null){
+			root = newNode;
+		}
+		/*Initially the node to be focused and parent is the root node
+		 */
+		else{
+			Node focusedNode = root;
+			Node parent;
+			while(true){
+				parent = focusedNode;
+				/*Check whether the key would go to the left subtree or the right subtree
+				 */
+				if(key < focusedNode.key){
+					focusedNode =focusedNode.leftChild;
+					if(focusedNode == null){
+						parent.leftChild = newNode;
+						return;
+					}
+				}
+				else{
+					focusedNode = focusedNode.rightChild;
+					if (focusedNode == null){
+						parent.rightChild = newNode;
+						return; 
+					}
+				}
+			}
+		}
+	}
+	//DEPTH FIRST SEARCH
+	//First the left Descendants of the root are processed then the root and finally the
+	//right Descendants
+	public void inOrderTraversal(Node focusNode){
+		if(focusNode!=null){
+			inOrderTraversal(focusNode.leftChild);
+			System.out.println(focusNode);
+			inOrderTraversal(focusNode.rightChild);
+		}
+	}
+	//First all the left Descendants of the root are processed then the right and finally the root 
+	public void postOrderTraverseTree(Node focusNode) {
+
+		if (focusNode != null) {
+
+			postOrderTraverseTree(focusNode.leftChild);
+			postOrderTraverseTree(focusNode.rightChild);
+
+			System.out.println(focusNode);
+
+		}
+
+	}
+	//First the root is processed followed the left descendants and then the right descendants
+	public void preOrderTraversal(Node focusNode){
+		if(focusNode != null){
+			System.out.println(focusNode);
+			preOrderTraversal(focusNode.leftChild);
+			preOrderTraversal(focusNode.rightChild);
+		}
+
+	}
+	//if input key is less than the root then left subtree is searched else right subtree is searched
+	public Node findNode(Node root,int key){
+		if(root == null)return null;
+		if(key == root.key) return root;
+		if(key<root.key){
+			return findNode(root.leftChild,key);
+		}
+		else{
+			return findNode(root.rightChild,key);
+		}
+
+	}
+	
+	public static void main(String[] args){
+		BinarySearchTree tree = new BinarySearchTree();
+		tree.addNode(75 , "Mango");
+		tree.addNode(85 , "Zara");
+		tree.addNode(65 , "Gucci");
+		tree.addNode(55 , "Prada");
+		tree.addNode(95 , "Ralph");
+		tree.addNode(60 , "Sabyasachi");
+		tree.inOrderTraversal(tree.root);
+
+	}      
+}
